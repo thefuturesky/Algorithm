@@ -88,3 +88,30 @@ if __name__ == "__main__":
 					islands_len+= count(x+dx[index],y+dy[index],grid)
 	print(islands_len)
 '''
+'''
+#字符最短距离
+S = "loveleetcode"
+C = 'e'
+temp = []
+for i in range(len(S)):
+	if S[i]==C:
+		temp.append(i)
+result = []
+key=0
+for j in range(len(S)):
+	if j<temp[key]:
+		if key == 0:
+			result.append(temp[key]-j)
+		else:
+			result.append(min(j-temp[key-1],temp[key]-j))
+	elif temp[key]<j:
+		if key+1<=len(temp)-1:
+			result.append(min(j-temp[key],temp[key+1]-j))
+		else:
+			result.append(j-temp[key])
+	elif j in temp:
+		result.append(0)
+		if key+1<=len(temp)-1:
+			key+=1
+print(result)
+'''
