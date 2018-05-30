@@ -115,3 +115,77 @@ for j in range(len(S)):
 			key+=1
 print(result)
 '''
+
+'''
+一个网站域名，如"discuss.leetcode.com"，包含了多个子域名。作为顶级域名，常用的有"com"，下一级则有"leetcode.com"，最低的一级为"discuss.leetcode.com"。
+当我们访问域名"discuss.leetcode.com"时，也同时访问了其父域名"leetcode.com"以及顶级域名 "com"。
+给定一个带访问次数和域名的组合，要求分别计算每个域名被访问的次数。其格式为访问次数+空格+地址，例如："9001 discuss.leetcode.com"。
+接下来会给出一组访问次数和域名组合的列表cpdomains 。要求解析出所有域名的访问次数，输出格式和输入格式相同，不限定先后顺序。
+from collections import defaultdict		#可以指定一个工厂函数，来初始化键对应该的值，每次初始化一个键时，都会调用这一函数,如果指定int那么会初始化成0
+
+示例 2
+输入: 
+["900 google.mail.com", "50 yahoo.com", "1 intel.mail.com", "5 wiki.org"]
+输出: 
+["901 mail.com","50 yahoo.com","900 google.mail.com","5 wiki.org","5 org","1 intel.mail.com","951 com"]
+说明: 
+按照假设，会访问"google.mail.com" 900次，"yahoo.com" 50次，"intel.mail.com" 1次，"wiki.org" 5次。
+而对于父域名，会访问"mail.com" 900+1 = 901次，"com" 900 + 50 + 1 = 951次，和 "org" 5 次。
+
+
+url_ls = ["900 google.mail.com", "50 yahoo.com", "1 intel.mail.com", "5 wiki.org"]
+dict_domain = defaultdict(int)
+for i in url_ls:
+	times , domian = i.split()
+	times = int(times)
+	dict_domain[domian]+=times
+
+	while '.' in domian:
+		domian = domian[domian.index('.')+1:]
+		dict_domain[domian] += times
+print([str(dic)+" "+v for v , dic in dict_domain.items()])
+'''
+
+'''
+修剪二叉搜索树
+给定一个二叉搜索树，同时给定最小边界L 和最大边界 R。通过修剪二叉搜索树，使得所有节点的值在[L, R]中 (R>=L) 。你可能需要改变树的根节点，所以结果应当返回修剪好的二叉搜索树的新的根节点。
+输入: 
+    3
+   / \
+  0   4
+   \
+    2
+   /
+  1
+
+  L = 1
+  R = 3
+
+输出: 
+      3
+     / 
+   2   
+  /
+ 1
+思路：
+	首先判断当前节点的value与边界之间的关系。如果是空，则终止递归，直接返回空。如果节点的值小于L则返回节点的右子树，如果节点的值大于R则返回其右节点调用递归函数的值。
+	如果节点的值小于L则返回其左节点调用递归函数的值。最后，如果节点的值在范围内则将左右节点调用递归函数的值赋值给其左右节点，并返回该节点。
+
+class Solution:
+    def trimBST(self, root, L, R):
+        """
+        :type root: TreeNode
+        :type L: int
+        :type R: int
+        :rtype: TreeNode
+        """
+        if root == None:
+            return None
+        if root.val>R:
+            return self.trimBST(root.left,L,R)
+        if root.val<L:
+            return self.trimBST(root.right,L,R)
+        root.left = self.trimBST(root.left,L,R)
+        root.right = self.trimBST(root.right,L,R)
+        return root
+        '''
