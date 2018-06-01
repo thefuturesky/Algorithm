@@ -233,3 +233,41 @@ class Solution:
         """
         return sum([a,b])
 '''
+'''
+Excel表列序号
+给定一个Excel表格中的列名称，返回其相应的列序号。
+示例 1:
+输入: "A"
+输出: 1
+
+示例 2:
+输入: "AB"
+输出: 28
+
+示例 3:
+输入: "ZY"
+输出: 701
+
+s = "ZY"
+result = 0
+for i in range(len(s)):
+	result += (ord(s[i])-64)*26**(len(s)-i-1)
+return result
+'''
+'''
+罗马数字转整数
+luoma = "IV"#任意一个罗马数字字符串
+ls = {'M':1000,'D':500,'C':100,'L':50,'X':10,'V':5,'I':1}
+result = 0
+for i in ls.keys():
+	while True:
+		if i not in luoma:
+			break
+		if luoma.index(i)==0:
+			result+=ls.get(i)
+			luoma = luoma[1:]
+		else:
+			result+=ls.get(i)-ls.get(luoma[0])
+			luoma = luoma[2:]
+print(result)
+'''
