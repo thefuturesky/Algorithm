@@ -271,3 +271,112 @@ for i in ls.keys():
 			luoma = luoma[2:]
 print(result)
 '''
+
+
+'''
+#下一个更大元素 
+给定两个没有重复元素的数组 nums1 和 nums2 ，其中nums1 是 nums2 的子集。找到 nums1 中每个元素在 nums2 中的下一个比其大的值。
+nums1 中数字 x 的下一个更大元素是指 x 在 nums2 中对应位置的右边的第一个比 x 大的元素。如果不存在，对应位置输出-1。
+
+输入: nums1 = [4,1,2], nums2 = [1,3,4,2].
+输出: [-1,3,-1]
+解释:
+    对于num1中的数字4，你无法在第二个数组中找到下一个更大的数字，因此输出 -1。
+    对于num1中的数字1，第二个数组中数字1右边的下一个较大数字是 3。
+    对于num1中的数字2，第二个数组中没有下一个更大的数字，因此输出 -1。
+
+nums1 = [3,1,5,7,9,2,6]
+nums2 = [1,2,3,5,6,7,9,11]
+result = []
+for i in nums1:
+	if nums2.index(i)==len(nums2)-1:
+		result.append(-1)
+	else:
+		tag = True
+		for j in nums2[nums2.index(i)+1:]:
+			if j>i:
+				result.append(j)
+				tag = False
+				break
+		if tag:
+			result.append(-1)
+print(result)
+'''
+
+
+'''
+# Fizz Buzz
+写一个程序，输出从 1 到 n 数字的字符串表示。
+1. 如果 n 是3的倍数，输出“Fizz”；
+2. 如果 n 是5的倍数，输出“Buzz”；
+3.如果 n 同时是3和5的倍数，输出 “FizzBuzz”。
+
+class Solution:
+    def fizzBuzz(self, n):
+        """
+        :type n: int
+        :rtype: List[str]
+        """
+        result =[]
+        for i in range(1,n+1):
+            if i%3==0 and i%5!=0:
+                result.append('Fizz')
+            elif i%5==0 and i%3!=0:
+                result.append("Buzz")
+            elif i%3==0 and i%5==0:
+                result.append("FizzBuzz")
+            else:
+                result.append(str(i))
+        return result
+'''
+
+
+'''
+#分糖果
+给定一个偶数长度的数组，其中不同的数字代表着不同种类的糖果，每一个数字代表一个糖果。你需要把这些糖果平均分给一个弟弟和一个妹妹。返回妹妹可以获得的最大糖果的种类数。
+输入: candies = [1,1,2,2,3,3]
+输出: 3
+解析: 一共有三种种类的糖果，每一种都有两个。
+     最优分配方案：妹妹获得[1,2,3],弟弟也获得[1,2,3]。这样使妹妹获得糖果的种类数最多。
+
+candies = [1,1,2,2,3,3]
+all_cotegroy = set(candies)
+if len(all_cotegroy)<=len(candies)//2:
+	print(len(all_cotegroy))
+else:
+	print(len(candies)//2)
+
+'''
+
+
+'''
+#写字符串需要的行数
+我们要把给定的字符串 S 从左到右写到每一行上，每一行的最大宽度为100个单位，
+如果我们在写某个字母的时候会使这行超过了100 个单位，那么我们应该把这个字母写到下一行。我们给定了一个数组 widths ，
+这个数组 widths[0] 代表 'a' 需要的单位， widths[1] 代表 'b' 需要的单位，...， widths[25] 代表 'z' 需要的单位。
+
+现在回答两个问题：至少多少行能放下S，以及最后一行使用的宽度是多少个单位？将你的答案作为长度为2的整数列表返回。
+示例 2:
+输入: 
+widths = [4,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10]
+S = "bbbcccdddaaa"
+输出: [2, 4]
+解释: 
+除去字母'a'所有的字符都是相同的单位10，并且字符串 "bbbcccdddaa" 将会覆盖 9 * 10 + 2 * 4 = 98 个单位.
+最后一个字母 'a' 将会被写到第二行，因为第一行只剩下2个单位了。
+所以，这个答案是2行，第二行有4个单位宽度。
+
+widths = [4,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10]
+s = "abcdefghijklmnopqrstuvwxyz"
+S = "bbbcccdddaaa"
+my_dict =dict(zip(s,widths))
+temp = 0
+result = [1,0]
+for i in S:
+	if temp+my_dict[i] >100:
+		result[0]+=1
+		temp=0
+	temp +=int(my_dict[i])
+result[1]=temp
+print(result)
+'''
