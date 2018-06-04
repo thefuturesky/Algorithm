@@ -380,3 +380,147 @@ for i in S:
 result[1]=temp
 print(result)
 '''
+
+
+'''
+#二叉树的层平均值
+给定一个非空二叉树, 返回一个由每层节点平均值组成的数组.
+
+示例 1:
+
+输入:
+    3
+   / \
+  9  20
+    /  \
+   15   7
+输出: [3, 14.5, 11]
+解释:
+第0层的平均值是 3,  第1层是 14.5, 第2层是 11. 因此返回 [3, 14.5, 11].
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def averageOfLevels(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[float]
+        """
+        result = []
+        if root == None:
+            return result
+        q = [root]
+        while q:
+            sum = 0
+            len = 0
+            q1 = []
+            while q:
+                temp = q.pop()
+                if temp.left:
+                    q1.append(temp.left)
+                if temp.right:
+                    q1.append(temp.right)
+                sum+=temp.val
+                len+=1
+            result.append(sum*1.0/len)
+            q = list(q1)
+        return result
+'''
+
+
+'''
+#托普利茨矩阵
+如果一个矩阵的每一方向由左上到右下的对角线上具有相同元素，那么这个矩阵是托普利茨矩阵。
+给定一个 M x N 的矩阵，当且仅当它是托普利茨矩阵时返回 True。
+示例 1:
+
+输入: matrix = [[1,2,3,4],[5,1,2,3],[9,5,1,2]]
+输出: True
+解释:
+1234
+5123
+9512
+在上面这个矩阵中, 对角线分别是 "[9]", "[5, 5]", "[1, 1, 1]", "[2, 2, 2]", "[3, 3]", "[4]",
+
+class Solution:
+    def isToeplitzMatrix(self, matrix):
+        """
+        :type matrix: List[List[int]]
+        :rtype: bool
+        """
+        x = len(matrix)
+        y = len(matrix[0])
+        tag = True
+        for i in range(x):
+            for j in range(y):
+                try:
+                    if matrix[i+1][j+1]!=matrix[i][j]:
+                        tag = False
+                except IndexError:
+                    pass
+        return tag
+'''
+
+
+'''
+#最大连续1的个数
+给定一个二进制数组， 计算其中最大连续1的个数。
+示例 1:
+
+输入: [1,1,0,1,1,1]
+输出: 3
+解释: 开头的两位和最后的三位都是连续1，所以最大连续1的个数是 3.
+
+class Solution:
+    def findMaxConsecutiveOnes(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        result = 0
+        temp =0
+        for i in nums:
+            if i ==1:
+                temp+=1
+            else:
+                if temp>result:
+                    result = temp
+                temp = 0
+        if temp>result:
+            result = temp
+        return result
+'''
+
+
+'''
+#杨辉三角
+给定一个非负整数 numRows，生成杨辉三角的前 numRows 行。
+在杨辉三角中，每个数是它左上方和右上方的数的和。
+
+class Solution:
+    def generate(self, numRows):
+        """
+        :type numRows: int
+        :rtype: List[List[int]]
+        """
+        if numRows==0:
+            return []
+        if numRows==1:
+            return [[1]]
+        result = [[1],[1,1]]
+        temp = []
+        for j in range(2,numRows):
+            for i in range(j+1):
+                if i==0 or i==j:
+                    temp.append(1)
+                else:
+                    temp.append(result[j-1][i]+result[j-1][i-1])
+            result.append(temp)
+            temp=[]
+        return result
+'''
