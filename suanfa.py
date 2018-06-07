@@ -553,3 +553,100 @@ class Solution:
             i+=1
         print(nums)
 '''
+
+
+'''
+#只出现一次的数字
+给定一个非空整数数组，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。
+说明：
+你的算法应该具有线性时间复杂度。 你可以不使用额外空间来实现吗？
+示例 1:
+输入: [2,2,1]
+输出: 1
+
+示例 2:
+输入: [4,1,2,1,2]
+输出: 4
+class Solution:
+    def singleNumber(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        nums.sort()
+        i=0
+        while True:
+            if i == len(nums)-1:
+                break
+            if nums[i]!=nums[i+1]:
+                break
+            i+=2
+        return nums[i]
+'''
+
+
+'''
+#检测大写字母
+给定一个单词，你需要判断单词的大写使用是否正确。
+我们定义，在以下情况时，单词的大写用法是正确的：
+全部字母都是大写，比如"USA"。
+单词中所有字母都不是大写，比如"leetcode"。
+如果单词不只含有一个字母，只有首字母大写， 比如 "Google"。
+否则，我们定义这个单词没有正确使用大写字母。
+
+示例 1:
+输入: "USA"
+输出: True
+
+示例 2:
+输入: "FlaG"
+输出: False
+
+class Solution:
+    def detectCapitalUse(self, word):
+        """
+        :type word: str
+        :rtype: bool
+        """
+        if 65<=ord(word[0])<=90:
+            if word[1:]==word[1:].lower():
+                return True
+            elif word[1:]==word[1:].upper():
+                return True
+            else:
+                return False
+        elif word.lower() == word:
+            return True
+        else:
+            return False
+'''
+
+
+'''
+#杨辉三角 II
+给定一个非负索引 k，其中 k ≤ 33，返回杨辉三角的第 k 行。
+
+示例:
+输入: 3
+输出: [1,3,3,1]
+
+class Solution:
+    def getRow(self, rowIndex):
+        """
+        :type rowIndex: int
+        :rtype: List[int]
+        """
+        if rowIndex==0:
+            return [1]
+        result = [[1],[1,1]]
+        temp = []
+        for j in range(2,rowIndex+1):
+            for i in range(j+1):
+                if i==0 or i==j:
+                    temp.append(1)
+                else:
+                    temp.append(result[j-1][i]+result[j-1][i-1])
+            result.append(temp)
+            temp=[]
+        return result[rowIndex]
+'''
