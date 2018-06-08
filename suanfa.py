@@ -650,3 +650,109 @@ class Solution:
             temp=[]
         return result[rowIndex]
 '''
+
+
+'''
+#岛屿的最大面积
+给定一个包含了一些 0 和 1的非空二维数组 grid , 一个 岛屿 是由四个方向 (水平或垂直) 
+的 1 (代表土地) 构成的组合。你可以假设二维矩阵的四个边缘都被水包围着。
+找到给定的二维数组中最大的岛屿面积。(如果没有岛屿，则返回面积为0。)
+示例 1:
+[[0,0,1,0,0,0,0,1,0,0,0,0,0],
+ [0,0,0,0,0,0,0,1,1,1,0,0,0],
+ [0,1,1,0,1,0,0,0,0,0,0,0,0],
+ [0,1,0,0,1,1,0,0,1,0,1,0,0],
+ [0,1,0,0,1,1,0,0,1,1,1,0,0],
+ [0,0,0,0,0,0,0,0,0,0,1,0,0],
+ [0,0,0,0,0,0,0,1,1,1,0,0,0],
+ [0,0,0,0,0,0,0,1,1,0,0,0,0]]
+对于上面这个给定矩阵应返回 6。注意答案不应该是11，因为岛屿只能包含水平或垂直的四个方向的‘1’。
+
+class Solution:
+    def dfs(self,ls,x0,y0):
+            ls[x0][y0] = 0
+            s = 1
+            n =len(ls)
+            m = len(ls[0])
+            dire = [[0,1],[0,-1],[1,0],[-1,0]]
+            for i in range(4):
+                x = x0 + dire[i][0]
+                y = y0 + dire[i][1]
+                try:
+                    if x>=0 and x<=n and y>=0 and y<=m and ls[x][y]==1:
+                        s += self.dfs(ls,x,y)
+                except IndexError :
+                    pass
+            return s
+        
+    def maxAreaOfIsland(self, grid):
+        """
+        :type grid: List[List[int]]
+        :rtype: int
+        """
+        mx = 0
+        n = len(grid)
+        m = len(grid[0])
+        for i in range(n):
+            for j in range(m):
+                if grid[i][j] == 1:
+                    mx = max(mx,self.dfs(grid,i,j))
+        return mx
+'''
+
+
+'''
+#相同的树
+给定两个二叉树，编写一个函数来检验它们是否相同。
+如果两个树在结构上相同，并且节点具有相同的值，则认为它们是相同的。
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def isSameTree(self, p, q):
+        """
+        :type p: TreeNode
+        :type q: TreeNode
+        :rtype: bool
+        """
+        return self.myfun([],p) == self.myfun([],q)
+        
+    def myfun(self,result , tree):
+        if tree == None:
+            return
+        result.append(tree.val)
+        if tree.left==None and tree.right!=None:
+            result.append(None)
+        self.myfun(result,tree.left)
+        self.myfun(result,tree.right)
+        return result
+'''
+
+
+'''
+#山羊拉丁文
+class Solution:
+    def toGoatLatin(self, S):
+        """
+        :type S: str
+        :rtype: str
+        """
+        ls = S.split(' ')
+        length = len(ls)
+        result = ''
+        container = ['a','e','i','o','u','A','E','I','O','U']
+
+        for i in range(length):
+            if ls[i][0] in container:
+                result += ls[i]+'ma'+'a'*(i+1)+' '
+            else:
+                ls[i]=ls[i][1:]+ls[i][0]
+                result +=ls[i]+"ma"+"a"*(i+1)+' '
+        result = result.strip()
+        return result
+'''
