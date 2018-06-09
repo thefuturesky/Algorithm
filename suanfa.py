@@ -756,3 +756,108 @@ class Solution:
         result = result.strip()
         return result
 '''
+
+
+'''
+#合并两个有序链表
+将两个有序链表合并为一个新的有序链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。 
+示例：
+输入：1->2->4, 1->3->4
+输出：1->1->2->3->4->4
+
+#递归求解
+class Solution:
+    def mergeTwoLists(self, l1, l2):
+        """
+        :type l1: ListNode
+        :type l2: ListNode
+        :rtype: ListNode
+        """
+        if l1 == None:
+            return l2
+        elif l2 == None:
+            return l1
+        result = None
+        if l1.val>l2.val:
+            result = l2
+            result.next = self.mergeTwoLists(l1,l2.next)
+        else:
+            result = l1
+            result.next = self.mergeTwoLists(l1.next,l2)
+        return result
+
+#非递归求解
+class Solution:
+    def mergeTwoLists(self, l1, l2):
+        """
+        :type l1: ListNode
+        :type l2: ListNode
+        :rtype: ListNode
+        """
+        if l1 == None:
+            return l2
+        elif l2 == None:
+            return l1
+        head = ListNode(0)
+        current = head
+        while l1 and l2:
+            if l1.val > l2.val:
+                current.next = l2
+                l2 = l2.next
+            else:
+                current.next = l1
+                l1 = l1.next
+            current = current.next
+        if l1:
+            current.next = l1
+        else:
+            current.next = l2
+        return head.next
+'''
+
+
+'''
+#求众数
+给定一个大小为 n 的数组，找到其中的众数。众数是指在数组中出现次数大于 ⌊ n/2 ⌋ 的元素。
+你可以假设数组是非空的，并且给定的数组总是存在众数。
+
+class Solution:
+    def majorityElement(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        length = len(nums)/2
+        set_temp = set(nums)
+        result = 0
+        for i in set_temp:
+            if nums.count(i)>length:
+                result = i
+        return result
+'''
+
+
+'''
+#区域和检索 - 数组不可变
+给定一个整数数组  nums，求出数组从索引 i 到 j  (i ≤ j) 范围内元素的总和，包含 i,  j 两点。
+示例：
+给定 nums = [-2, 0, 3, -5, 2, -1]，求和函数为 sumRange()
+sumRange(0, 2) -> 1
+sumRange(2, 5) -> -1
+sumRange(0, 5) -> -3
+
+class NumArray:
+    def __init__(self, nums):
+        """
+        :type nums: List[int]
+        """
+        self._nums = nums
+        
+    def sumRange(self, i, j):
+        """
+        :type i: int
+        :type j: int
+        :rtype: int
+        """
+        return sum(self._nums[i:j+1])
+'''
