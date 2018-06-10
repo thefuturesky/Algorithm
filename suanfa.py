@@ -861,3 +861,81 @@ class NumArray:
         """
         return sum(self._nums[i:j+1])
 '''
+
+'''
+#找不同
+给定两个字符串 s 和 t，它们只包含小写字母。
+字符串 t 由字符串 s 随机重排，然后在随机位置添加一个字母。
+请找出在 t 中被添加的字母。
+
+class Solution:
+    def findTheDifference(self, s, t):
+        """
+        :type s: str
+        :type t: str
+        :rtype: str
+        """
+        ls = list(t)
+        for i in s:
+            ls.remove(i)
+        return ls[0]
+'''
+
+
+'''
+#二叉树的层次遍历 II
+给定一个二叉树，返回其节点值自底向上的层次遍历。 （即按从叶子节点所在层到根节点所在的层，逐层从左向右遍历）
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def levelOrderBottom(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[List[int]]
+        """
+        result = []
+        if root == None:
+            return result
+        stack = [root]
+        while stack:
+            temp =[]
+            for i in range(len(stack)):
+                current = stack.pop(0)
+                temp.append(current.val)
+                if current.left:
+                    stack.append(current.left)
+                if current.right:
+                    stack.append(current.right)
+            result.append(temp)
+        result.reverse()
+        return result
+'''
+
+
+'''
+#移除元素
+给定一个数组 nums 和一个值 val，你需要原地移除所有数值等于 val 的元素，返回移除后数组的新长度。
+不要使用额外的数组空间，你必须在原地修改输入数组并在使用 O(1) 额外空间的条件下完成。
+元素的顺序可以改变。你不需要考虑数组中超出新长度后面的元素。
+
+使用while 循环，删除元素的时候i不加。
+class Solution:
+    def removeElement(self, nums, val):
+        """
+        :type nums: List[int]
+        :type val: int
+        :rtype: int
+        """
+        i=0
+        while i<len(nums):
+            if nums[i]==val:
+                nums.remove(val)
+            else:
+                i+=1
+        return len(nums)
+'''
