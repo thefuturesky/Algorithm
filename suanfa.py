@@ -939,3 +939,147 @@ class Solution:
                 i+=1
         return len(nums)
 '''
+
+
+'''
+#员工的重要性
+示例 1:
+输入: [[1, 5, [2, 3]], [2, 3, []], [3, 3, []]], 1
+输出: 11
+解释:
+员工1自身的重要度是5，他有两个直系下属2和3，而且2和3的重要度均为3。因此员工1的总重要度是 5 + 3 + 3 = 11。
+"""
+# Employee info
+class Employee:
+    def __init__(self, id, importance, subordinates):
+        # It's the unique id of each node.
+        # unique id of this employee
+        self.id = id
+        # the importance value of this employee
+        self.importance = importance
+        # the id of direct subordinates
+        self.subordinates = subordinates
+"""
+class Solution:
+    def getImportance(self, employees, id):
+        """
+        :type employees: Employee
+        :type id: int
+        :rtype: int
+        """
+        for employee in employees:
+            if employee.id == id:
+                result = employee.importance
+                if not employee.subordinates:
+                    return result
+                for index in employee.subordinates:
+                    result+=self.getImportance(employees,index)
+                return result
+'''
+
+
+'''
+#根据二叉树创建字符串
+你需要采用前序遍历的方式，将一个二叉树转换成一个由括号和整数组成的字符串。
+空节点则用一对空括号 "()" 表示。而且你需要省略所有不影响字符串与原始二叉树之间的一对一映射关系的空括号对。
+示例 1:
+输入: 二叉树: [1,2,3,4]
+       1
+     /   \
+    2     3
+   /    
+  4     
+输出: "1(2(4))(3)"
+解释: 原本将是“1(2(4)())(3())”，
+在你省略所有不必要的空括号对之后，
+它将是“1(2(4))(3)”。
+
+class Solution:
+    def tree2str(self, t):
+        """
+        :type t: TreeNode
+        :rtype: str
+        """
+        result = ""
+        if t == None:
+            return ""
+        result += str(t.val)
+        if t.right==None and t.left!=None:
+            result += "("+self.tree2str(t.left)+")"
+        elif t.left==None and t.right!=None:
+            result += "()"+"("+self.tree2str(t.right)+")"
+        elif t.left!=None and t.right!=None:
+            result += "("+self.tree2str(t.left)+")"
+            result += "("+self.tree2str(t.right)+")"
+        
+        return result
+'''
+
+
+'''
+#两个数组的交集
+给定两个数组，写一个函数来计算它们的交集。
+例子:
+给定 num1= [1, 2, 2, 1], nums2 = [2, 2], 返回 [2].
+class Solution:
+    def intersection(self, nums1, nums2):
+        """
+        :type nums1: List[int]
+        :type nums2: List[int]
+        :rtype: List[int]
+        """
+        result = []
+        for i in nums1:
+            if i in nums2 and i not in result:
+                result.append(i)
+        return result
+'''
+
+
+'''
+#报数
+报数序列是指一个整数序列，按照其中的整数的顺序进行报数，得到下一个数。其前五项如下：
+1.     1
+2.     11
+3.     21
+4.     1211
+5.     111221
+
+class Solution:
+    def countAndSay(self, n):
+        """
+        :type n: int
+        :rtype: str
+        """
+        result = ''
+        if n==1:
+            return "1"
+        if n==2:
+            return "11"
+        res = "11"
+        for i in range(2,n):
+            tep = ""
+            count = 1
+            for j in range(1,len(res)):
+                if res[j-1]==res[j]:
+                    count+=1
+                else:
+                    tep +=str(count)+res[j-1]
+                    count=1
+            tep += str(count)+res[j]
+            res = tep
+        return res
+'''
+
+
+'''
+#计数二进制子串
+class Solution:
+    def countBinarySubstrings(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        L = list(map(len, s.replace('01', '0 1').replace('10', '1 0').split(' ')))  
+        return sum(min(a,b) for a,b in zip(L, L[1:]) )
+'''
