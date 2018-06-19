@@ -1083,3 +1083,27 @@ class Solution:
         L = list(map(len, s.replace('01', '0 1').replace('10', '1 0').split(' ')))  
         return sum(min(a,b) for a,b in zip(L, L[1:]) )
 '''
+
+
+'''
+#相对名次
+class Solution:
+    def findRelativeRanks(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[str]
+        """
+        medal = ["Gold Medal", "Silver Medal", "Bronze Medal"]
+        length = len(nums)
+        dic_1 = dict(zip([i for i in range(length)],nums))
+        nums = sorted(nums)[::-1]
+        for i in range(3,length):
+            medal.append(str(i+1))
+        dic_2 = dict(zip(nums,medal))
+        for key,value in dic_1.items():
+            dic_1[key] = dic_2[value]
+        result=[]
+        for value in dic_1.values():
+            result.append(value)
+        return result
+'''
