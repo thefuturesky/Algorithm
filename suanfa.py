@@ -1077,12 +1077,13 @@ class Solution:
 class Solution:
     def countBinarySubstrings(self, s):
         """
-        :type s: str
+        :type s: strs
         :rtype: int
         """
         L = list(map(len, s.replace('01', '0 1').replace('10', '1 0').split(' ')))  
         return sum(min(a,b) for a,b in zip(L, L[1:]) )
 '''
+<<<<<<< HEAD
 
 
 '''
@@ -1107,3 +1108,6 @@ class Solution:
             result.append(value)
         return result
 '''
+=======
+'hello world!!! soucetree dev12'
+>>>>>>> 9c5ab10a3838f833d96d573edb27a02815d02ce2
